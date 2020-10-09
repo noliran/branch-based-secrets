@@ -1,0 +1,35 @@
+name: "Test branch-based-secrets"
+on:
+  pull_request:
+  push:
+
+jobs:
+  latest:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - run: npm ci
+      - run: npm run package
+
+      - run: printenv
+
+      - uses: ./
+        with:
+          secrets: TESTSECRET
+
+      - run: printenv
+
+      - if: ${{ env.GITHUB_REF == "refs/heads/master" && env.TARGET_BRANCH != "master" }}
+        run: |
+          echo "Assertion failed for TARGET_BRANCH: $TARGET_BRANCH != master"
+          exit 1
+      - if: ${{ env.GITHUB_REF == "refs/heads/master" && env.TARGET_BRANCH_U != "MASTER" }}
+        run: |
+          echo "Assertion failed for TARGET_BRANCH_U: $TARGET_BRANCH_U != MASTER"
+          exit 1
+      - if: ${{ env.TESTSECRET_NAME != "TESTSECRET_" + env.TARGET_BRANCH_U }}
+        run: |
+          echo "Assertion failed for TESTSECRET_NAME: $TESTSECRET_NAME != TESTSECRET_MASTER"
+          exit 1
