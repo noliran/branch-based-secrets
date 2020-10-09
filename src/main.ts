@@ -35,8 +35,8 @@ async function run() {
 }
 
 function refToBranch(ref: string) {
-  if (!ref.startsWith("refs/heads/")) {
-    throw new Error(`Ref ${ref} doesn't start with refs/heads/`);
+  if (ref.startsWith("refs/") && !ref.startsWith("refs/heads/")) {
+    throw new Error(`Ref ${ref} doesn't point to a branch`);
   }
 
   return ref.replace("refs/heads/", "");
