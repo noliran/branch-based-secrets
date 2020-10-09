@@ -1,0 +1,21 @@
+{
+  "name": "branch-based-secrets",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Create environment variables naming secrets specific to this branch",
+  "main": "dist/index.js",
+  "scripts": {
+    "package": "ncc build src/main.ts -o dist --source-map --license LICENSE"
+  },
+  "author": "Noam Liran",
+  "license": "Apache2.0",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "@types/node": "^14.11.8"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.24.0",
+    "typescript": "^3.6.4"
+  }
+}
