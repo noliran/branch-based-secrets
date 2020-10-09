@@ -21,15 +21,15 @@ jobs:
 
       - run: printenv
 
-      - if: ${{ env.GITHUB_REF == 'refs/heads/master' && env.TARGET_BRANCH != 'master' }}
+      - if: ${{ github.ref == 'refs/heads/master' && env.TARGET_BRANCH != 'master' }}
         run: |
           echo "Assertion failed for TARGET_BRANCH: $TARGET_BRANCH != master"
           exit 1
-      - if: ${{ env.GITHUB_REF == 'refs/heads/master' && env.TARGET_BRANCH_U != 'MASTER' }}
+      - if: ${{ github.ref == 'refs/heads/master' && env.TARGET_BRANCH_U != 'MASTER' }}
         run: |
           echo "Assertion failed for TARGET_BRANCH_U: $TARGET_BRANCH_U != MASTER"
           exit 1
-      - if: ${{ env.TESTSECRET_NAME != 'TESTSECRET_' + env.TARGET_BRANCH_U }}
+      - if: ${{ env.TESTSECRET_NAME != format('TESTSECRET_{0}', env.TARGET_BRANCH_U) }}
         run: |
           echo "Assertion failed for TESTSECRET_NAME: $TESTSECRET_NAME != TESTSECRET_MASTER"
           exit 1
