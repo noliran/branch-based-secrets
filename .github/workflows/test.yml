@@ -1,7 +1,11 @@
 name: "Test branch-based-secrets"
 on:
   pull_request:
+    branches:
+      - master  
   push:
+    branches:
+      - master
 
 jobs:
   latest:
