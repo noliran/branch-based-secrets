@@ -10,12 +10,13 @@ async function run() {
       .getInput("secrets", { required: true })
       .toUpperCase()
       .split(",");
-    let branch = refToBranch(process.env.GITHUB_REF);
+    let ref = process.env.GITHUB_REF;
 
-    core.info(`Context: ${JSON.stringify(context)}`);
     if (context.eventName == "pull_request") {
-      branch = refToBranch(process.env.GITHUB_BASE_REF);
+      ref = process.env.GITHUB_BASE_REF;
     }
+
+    const branch = refToBranch(ref);
 
     core.info(`Target branch: ${branch}`);
 
@@ -34,10 +35,10 @@ async function run() {
 }
 
 function refToBranch(ref: string) {
-  assert(
-    ref.startsWith("refs/heads/"),
-    `Ref ${ref} doesn't start with refs/heads/`
-  );
+  if (!ref.startsWith("refs/heads/")) {
+    throw new Error(`Ref ${ref} doesn't start with refs/heads/`);
+  }
+
   return ref.replace("refs/heads/", "");
 }
 
