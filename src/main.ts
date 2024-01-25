@@ -29,7 +29,7 @@ async function run() {
 
     core.exportVariable("TARGET_BRANCH", branch);
     core.exportVariable("TARGET_BRANCH_U", branch.toUpperCase());
-  } catch (error) {
+  } catch (error:any) {
     core.setFailed(error.message);
   }
 }

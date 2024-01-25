@@ -10,12 +10,12 @@
   "author": "Noam Liran",
   "license": "Apache2.0",
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0",
-    "@types/node": "^16.11.7"
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0",
+    "@types/node": "20.11.6"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.24.0",
-    "typescript": "^3.9.4"
+    "@vercel/ncc": "^0.38.1",
+    "typescript": "^4.9.5"
   }
 }
